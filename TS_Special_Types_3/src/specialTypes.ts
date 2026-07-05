@@ -204,3 +204,71 @@ type Shape2 = Circle | Square | Rectangle | Triangle;
 
 // "Error: Type 'Triangle' is not assignable to type 'never'."
 // Yeh error aapko fauran yaad dilayegi ki aapko getArea function ke andar case "triangle": bhi likhna padega. Jab tak aap use nahi likhenge, code compile hi nahi hoga. Isse production mein bugs aane ka khatra bilkul khatam ho jata hai.
+
+
+// When to use never: 
+    // For functions that will never return a value
+    // In type guads that should never match
+    // For exhaustive type checking in switch statements
+    // In generic types to indicate certain cases are impossible
+
+// Type: undefined & null
+// In TypeScript, both undefined and null have their own types, just like string or number.
+// By default, these types can be assigned to any other type, but this can be changed with TypeScript's strcit null checks.
+
+// Kye points about undefined and null:
+    // undefined means a variable has been declared but not assinged a value
+    // null is an explict assignment that represents no value no object
+    // In TypeScript, both have their own types: undefined and null repectively
+    // With strictNullChecks ebabled, you must explicitly handle these types
+
+// Basic Usage
+let y: undefined = undefined;
+let x
+
+// ye dono same hai
+console.log(y) // output: undefined
+console.log(x) // output: undefined
+
+let z: null = null;
+
+// Optional Parameters and Properties
+
+// Optional parameter (implicityly `string | undefiend`)
+
+function greet(name?: string) {
+    return `Hello , ${name || 'stranger'}`
+}
+
+// Optional property in an interface
+interface User {
+    name: string;
+    age?: number; // Same as 'number | undefined'
+}
+
+
+
+// Nullish Coalescing and Optional Chaining
+// Nullish coalescing (??) - only uses default if value is null or undefined
+let input = 'sawan';
+
+const value = input ?? 'default';
+
+// Optional chaining (?.) - safely access nested properties
+
+const user = {
+    address: {
+        street: 'choti gali'
+    }
+}
+// console.log(user?.address?.street);
+
+// Important: These types are not most useful when strictNullChecks in enabled in your tsconfig.json file.
+
+// This ensures that null and undefined are only assignable to themselves and any.
+// to enable strict null checks, add this to your tsconfig.json
+// {
+//   "compilerOptions": {
+//     "strictNullChecks": true
+//   }
+// }
